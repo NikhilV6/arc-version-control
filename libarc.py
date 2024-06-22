@@ -66,7 +66,7 @@ class GitRepository(object):
             if vers!=0:
                 raise Exception("Unsupported repositoryfromatversion %s" % vers)
             
-# utility function
+
 def repo_path(repo, *path):
     """compute path under repo's gitdir"""
     return os.path.join(repo.gitdir , *path)
@@ -98,7 +98,7 @@ def repo_create(path):
     """Create a new repository at path"""
     repo = GitRepository(path,True)
 
-    #check if path doesn't exist or Empty
+    
 
     if os.path.exists(repo.worktree):
         if not os.path.isdir(repo.worktree):
@@ -623,7 +623,7 @@ def tag_create(repo, name, ref, create_tag_object=False):
         tag_sha = object_write(tag)
         ref_create(repo, "tags/" + name, tag_sha)
     else:
-        # create lightweight tag (ref)
+       
         ref_create(repo, "tags/" + name, sha)
 
 def ref_create(repo, ref_name, sha):
@@ -1320,7 +1320,6 @@ def commit_create(repo, tree, parent, author, timestamp, message):
 def cmd_commit(args):
     repo = repo_find()
     index = index_read(repo)
-    # Create trees, grab back SHA for the root tree.
     tree = tree_from_index(repo, index)
 
     commit = commit_create(repo,
@@ -1331,7 +1330,7 @@ def cmd_commit(args):
                            args.message)
 
     active_branch = branch_get_active(repo)
-    if active_branch: # If we're on a branch, we update refs/heads/BRANCH
+    if active_branch: 
         with open(repo_file(repo, os.path.join("refs/heads", active_branch)), "w") as fd:
             fd.write(commit + "\n")
     else: 
